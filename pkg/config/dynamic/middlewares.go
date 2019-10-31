@@ -35,6 +35,7 @@ type Middleware struct {
 	Compress          *Compress          `json:"compress,omitempty" toml:"compress,omitempty" yaml:"compress,omitempty" label:"allowEmpty"`
 	PassTLSClientCert *PassTLSClientCert `json:"passTLSClientCert,omitempty" toml:"passTLSClientCert,omitempty" yaml:"passTLSClientCert,omitempty"`
 	Retry             *Retry             `json:"retry,omitempty" toml:"retry,omitempty" yaml:"retry,omitempty"`
+	StaticFile        *StaticFile        `json:"staticFile,omitempty" toml:"staticFile,omitempty" yaml:"staticFile,omitempty"`
 }
 
 // +k8s:deepcopy-gen=true
@@ -351,6 +352,13 @@ type ReplacePathRegex struct {
 // Retry holds the retry configuration.
 type Retry struct {
 	Attempts int `json:"attempts,omitempty" toml:"attempts,omitempty" yaml:"attempts,omitempty" export:"true"`
+}
+
+// +k8s:deepcopy-gen=true
+
+// StaticFile holds the StaticFile configuration.
+type StaticFile struct {
+	Root string `json:"root,omitempty" toml:"root,omitempty" yaml:"root,omitempty"`
 }
 
 // +k8s:deepcopy-gen=true

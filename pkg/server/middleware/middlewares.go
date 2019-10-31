@@ -25,6 +25,7 @@ import (
 	"github.com/containous/traefik/v2/pkg/middlewares/replacepath"
 	"github.com/containous/traefik/v2/pkg/middlewares/replacepathregex"
 	"github.com/containous/traefik/v2/pkg/middlewares/retry"
+	"github.com/containous/traefik/v2/pkg/middlewares/staticfile"
 	"github.com/containous/traefik/v2/pkg/middlewares/stripprefix"
 	"github.com/containous/traefik/v2/pkg/middlewares/stripprefixregex"
 	"github.com/containous/traefik/v2/pkg/middlewares/tracing"
@@ -113,6 +114,13 @@ func (b *Builder) buildConstructor(ctx context.Context, middlewareName string) (
 	if config.AddPrefix != nil {
 		middleware = func(next http.Handler) (http.Handler, error) {
 			return addprefix.New(ctx, next, *config.AddPrefix, middlewareName)
+		}
+	}
+
+	// StaticFile
+	if config.StaticFile != nil {
+		middleware = func(next http.Handler) (http.Handler, error) {
+			return staticfile.New(ctx, next, *config.StaticFile, middlewareName)
 		}
 	}
 
